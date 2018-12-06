@@ -1,6 +1,8 @@
 import argparse
 import sys
 
+import functions
+
 def parse_args():
     parser = argparse.ArgumentParser(description='remove sections from each line of files')
     parser.add_argument('files', type=argparse.FileType('r'), default=[sys.stdin],
@@ -8,10 +10,13 @@ def parse_args():
                         )
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--bytes', '-b', metavar='LIST',
+                       type=functions.ranges,
                         help='select only these bytes')
     group.add_argument('--characters', '-c', metavar='LIST',
-                        help='select only these characters')
+                       type=functions.ranges,
+                       help='select only these characters')
     group.add_argument('--fields', '-f', metavar='LIST',
+                       type=functions.ranges,
                        help='select  only  these  fields;  also print any line that contains no delimiter character, unless the -s option is specified')
 
     parser.add_argument('--delimiter', '-d', metavar='DELIM',

@@ -1,5 +1,15 @@
 import re
 
+from hypothesis.internal.intervalsets import IntervalSet
+
+
+def ranges(spec):
+    """Return a range like object, parsed from the string spec
+    """
+    patt = re.compile(r'(\d+)?(-)?(\d+)?')
+    return [(int(r[0] or '0'), int(r[2] or '1000')) for r in patt.findall(spec) if r[0] or r[2]]
+
+
 def split_line_by_delimiter(line, delimiter="\t"):
     if len(delimiter) != 1:
         raise ValueError("the delimiter must be a single character")
