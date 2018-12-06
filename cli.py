@@ -3,8 +3,10 @@ import sys
 
 def parse_args():
     parser = argparse.ArgumentParser(description='remove sections from each line of files')
-    parser.add_argument('files', type=argparse.FileType('r'), default=sys.stdin)
     parser.add_argument('--bytes', '-b', metavar='LIST',
+    parser.add_argument('files', type=argparse.FileType('r'), default=[sys.stdin],
+                        nargs='*'
+                        )
                         help='select only these bytes')
     parser.add_argument('--characters', '-c', metavar='LIST',
                         help='select only these characters')
