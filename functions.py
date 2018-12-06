@@ -31,7 +31,9 @@ def choose_character(index_character_list, line, complement=False):
             result.append("")
     return result
 
-def choose_byte(index_byte_list, line):
+def choose_byte(index_byte_list, line, complement=False):
+    if min(index_byte_list) < 1:
+        raise ValueError("byte/character positions are numbered from 1")
     try:
         bytes_line = str.encode(line)
     except TypeError as e:
@@ -39,12 +41,15 @@ def choose_byte(index_byte_list, line):
 
     result = []
 
+    if complement:
+        index_byte_list = set(range(len(line))) - set(index_byte_list)
+
     for byte_index in index_byte_list:
         try:
             b = bytes_line[byte_index - 1]
-            result.append(b)
+            result.append(ord(b))
         except IndexError:
-            result.append("")
+            result.append(ord(""))
 
     return result
 
@@ -59,5 +64,6 @@ assert choose_character([1,2,3,4], "Hello", complement=True) == ["o"]
 assert choose_character([1], "Hello World") == ["H"]
 
 assert choose_byte([1,2,3,4,5], "Hello") == [72, 101, 108, 108, 111]
-assert choose_byte([1,2,3,4], "Hell") == [72, 101, 108, 108]
+assert choose_byte([1,2,3,4], "Hello World") == [72, 101, 108, 108]
+assert choose_byte([1,2,3,4], "Hello", complement=True) == [111]
 
