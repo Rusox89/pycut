@@ -15,6 +15,7 @@ def parse_args():
                        help='select  only  these  fields;  also print any line that contains no delimiter character, unless the -s option is specified')
 
     parser.add_argument('--delimiter', '-d', metavar='DELIM',
+                        default='\t',
                         help='use DELIM instead of TAB for field delimiter')
 
     parser.add_argument('-n',
