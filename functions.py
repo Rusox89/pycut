@@ -1,5 +1,11 @@
 import re
 
+def output_lines(list_list_of_fields, delimiter="\t"):
+    result = []
+    for fields_list in list_list_of_fields:
+        result.append(delimiter.join(fields_list))
+    return "\n".join(result)
+
 def split_line_by_delimiter(line, delimiter="\t", only_delimited=False):
     if len(delimiter) != 1:
         raise ValueError("the delimiter must be a single character")
