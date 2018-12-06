@@ -31,6 +31,22 @@ def choose_character(index_character_list, line, complement=False):
             result.append("")
     return result
 
+def choose_byte(index_byte_list, line):
+    try:
+        bytes_line = str.encode(line)
+    except TypeError as e:
+        raise e
+
+    result = []
+
+    for byte_index in index_byte_list:
+        try:
+            b = bytes_line[byte_index - 1]
+            result.append(b)
+        except IndexError:
+            result.append("")
+
+    return result
 
 assert split_line_by_delimiter("Hello World", " ") == ["Hello", "World"]
 assert choose_fields([1], split_line_by_delimiter("Hello World", " ")) == ["Hello"]
@@ -41,3 +57,7 @@ assert choose_character([1,2,3,4], "Hello World") == ["H", "e", "l", "l"]
 assert choose_character([1,2,3,4], "Hello", complement=True) == ["o"]
 
 assert choose_character([1], "Hello World") == ["H"]
+
+assert choose_byte([1,2,3,4,5], "Hello") == [72, 101, 108, 108, 111]
+assert choose_byte([1,2,3,4], "Hell") == [72, 101, 108, 108]
+
