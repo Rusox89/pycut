@@ -20,9 +20,9 @@ def parse_args():
 
     parser.add_argument('-n',
                         help='(ignored)')
-    parser.add_argument('--complement', 
+    parser.add_argument('--complement', action='store_true',
                         help='complement the set of selected bytes, characters or fields')
-    parser.add_argument('--only-delimited', '-s',
+    parser.add_argument('--only-delimited', '-s', action='store_true',
                         help='do not print lines not containing delimiters')
     parser.add_argument('--output-delimiter', metavar='STRING',
                         help='use STRING as the output delimiter the default is to use the input delimiter')
