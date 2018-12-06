@@ -37,7 +37,7 @@ def choose_byte(index_byte_list, line):
 
     for byte_index in index_byte_list:
         try:
-            b = line[byte_index]
+            b = bytes_line[byte_index - 1]
             result.append(b)
         except IndexError:
             result.append("")
@@ -50,3 +50,7 @@ assert choose_fields([1,2], split_line_by_delimiter("Hello World", " ")) == ["He
 
 assert choose_character([1,2,3,4], "Hello World") == ["H", "e", "l", "l"]
 assert choose_character([1], "Hello World") == ["H"]
+
+assert choose_byte([1,2,3,4,5], "Hello") == [72, 101, 108, 108, 111]
+assert choose_byte([1,2,3,4], "Hell") == [72, 101, 108, 108]
+
