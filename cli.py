@@ -26,9 +26,12 @@ def parse_args():
     parser.add_argument('--output-delimiter', metavar='STRING',
                         help='use STRING as the output delimiter the default is to use the input delimiter')
     parser.add_argument('--zero-terminated', '-z',
+                        dest='line_delimiter', action='store_const', const='\0',
                         help='line delimiter is NUL, not newline')
     parser.add_argument('--version', 
                         help='output version information and exit')
+
+    parser.set_defaults(line_delimiter='\n')
 
     args = parser.parse_args()
     return parser, args
