@@ -6,6 +6,7 @@ from functions import (
     choose_character,
     choose_byte,
 )
+import hypothesis
 import sys
 
 
