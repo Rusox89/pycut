@@ -27,6 +27,18 @@ def choose_character(index_character_list, line):
             result.append("")
     return result
 
+def choose_byte(index_byte_list, line):
+    bytes_line = str.encode(line)
+    result = []
+
+    for byte_index in index_byte_list, line:
+        try:
+            b = line[byte_index]
+            result.append(b)
+        except IndexError:
+            result.append("")
+
+    return result
 
 assert split_line_by_delimiter("Hello World", " ") == ["Hello", "World"]
 assert choose_fields([1], split_line_by_delimiter("Hello World", " ")) == ["Hello"]
