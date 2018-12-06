@@ -1,5 +1,12 @@
 #! /usr/bin/env python
 from cli import parse_args
+from functions import (
+    split_line_by_delimiter,
+    choose_fields,
+    choose_character,
+    choose_byte,
+)
+import hypothesis
 import sys
 
 
@@ -13,3 +20,13 @@ if __name__ == '__main__':
             'Use at your own risk.'
         )
         sys.exit()
+
+    for cut_file in args.files:
+        for line in cut_file.readlines():
+            if args.bytes:
+                print(choose_byte(args.bytes, line, args.complement))
+            elif args.characters:
+                print(choose_character(args.characters, line, args.complement))
+            elif args.fields:
+                split_line = split_line_by_delimiter(line, args.delimiter)
+                print(choose_fields(args.fields, split_line, args.complement))

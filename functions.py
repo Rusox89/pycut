@@ -10,10 +10,20 @@ def ranges(spec):
     return [(int(r[0] or '0'), int(r[2] or '1000')) for r in patt.findall(spec) if r[0] or r[2]]
 
 
-def split_line_by_delimiter(line, delimiter="\t"):
+def output_lines(list_list_of_fields, delimiter="\t"):
+    result = []
+    for fields_list in list_list_of_fields:
+        result.append(delimiter.join(fields_list))
+    return "\n".join(result)
+
+def split_line_by_delimiter(line, delimiter="\t", only_delimited=False):
     if len(delimiter) != 1:
         raise ValueError("the delimiter must be a single character")
-    return list(re.split(r"{}".format(delimiter), str(line)))
+    result = list(re.split(r"{}".format(delimiter), str(line)))
+    if only_delimited:
+        if len(result) == 1:
+            return []
+    return result
 
 def choose_fields(index_field_list, list_of_fields, complement=False):
     if min(index_field_list) < 1:
@@ -64,6 +74,8 @@ def choose_byte(index_byte_list, line, complement=False):
     return result
 
 assert split_line_by_delimiter("Hello World", " ") == ["Hello", "World"]
+assert split_line_by_delimiter("Hello World", " ", only_delimited=True) == ["Hello", "World"]
+assert split_line_by_delimiter("Hello,World", " ", only_delimited=True) == []
 assert choose_fields([1], split_line_by_delimiter("Hello World", " ")) == ["Hello"]
 assert choose_fields([1], split_line_by_delimiter("Hello World", " "), complement=True) == ["World"]
 assert choose_fields([1,2], split_line_by_delimiter("Hello World", " ")) == ["Hello", "World"]
@@ -76,4 +88,3 @@ assert choose_character([1], "Hello World") == ["H"]
 assert choose_byte([1,2,3,4,5], "Hello") == [72, 101, 108, 108, 111]
 assert choose_byte([1,2,3,4], "Hello World") == [72, 101, 108, 108]
 assert choose_byte([1,2,3,4], "Hello", complement=True) == [111]
-
