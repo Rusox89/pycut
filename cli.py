@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument('--zero-terminated', '-z',
                         dest='line_delimiter', action='store_const', const='\0',
                         help='line delimiter is NUL, not newline')
-    parser.add_argument('--version', 
+    parser.add_argument('--version', action='store_true',
                         help='output version information and exit')
 
     parser.set_defaults(line_delimiter='\n')
