@@ -1,0 +1,15 @@
+#! /usr/bin/env python
+from cli import parse_args
+import sys
+
+
+if __name__ == '__main__':
+    _, args = parse_args()
+
+    if args.version:
+        print(
+            'cut (dojo kludgeutils) 0.81\n'
+            'Authored by team 2.\n'
+            'Use at your own risk.'
+        )
+        sys.exit()
