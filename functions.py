@@ -28,10 +28,14 @@ def choose_character(index_character_list, line):
     return result
 
 def choose_byte(index_byte_list, line):
-    bytes_line = str.encode(line)
+    try:
+        bytes_line = str.encode(line)
+    except TypeError as e:
+        raise e
+
     result = []
 
-    for byte_index in index_byte_list, line:
+    for byte_index in index_byte_list:
         try:
             b = line[byte_index]
             result.append(b)
